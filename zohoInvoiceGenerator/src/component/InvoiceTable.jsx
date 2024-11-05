@@ -1,5 +1,19 @@
-import React from "react"
-import '../App.css';
+import React from "react";
+import {
+  Box,
+  Button,
+  Input,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  IconButton,
+  Text,
+  HStack,
+} from "@chakra-ui/react";
+import { MinusIcon, AddIcon } from "@chakra-ui/icons";
 
 const InvoiceTable = ({ invoiceData, updateInvoiceData }) => {
   const handleItemChange = (index, field, value) => {
@@ -21,52 +35,74 @@ const InvoiceTable = ({ invoiceData, updateInvoiceData }) => {
   };
 
   return (
-    <div>
-      <h2>Items</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Description</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Amount</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
+    <Box mt={6}>
+      <Text fontSize="2xl" mb={4}>
+        Items
+      </Text>
+      <Table variant="simple">
+        <Thead>
+          <Tr>
+            <Th>Description</Th>
+            <Th>Quantity</Th>
+            <Th>Price</Th>
+            <Th>Amount</Th>
+            <Th>Actions</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
           {invoiceData.items.map((item, index) => (
-            <tr key={index}>
-              <td>
-                <input
+            <Tr key={index}>
+              <Td>
+                <Input
                   type="text"
                   value={item.description}
-                  onChange={(e) => handleItemChange(index, "description", e.target.value)}
+                  onChange={(e) =>
+                    handleItemChange(index, "description", e.target.value)
+                  }
+                  size="sm"
                 />
-              </td>
-              <td>
-                <input
+              </Td>
+              <Td>
+                <Input
                   type="number"
                   value={item.quantity}
-                  onChange={(e) => handleItemChange(index, "quantity", e.target.value)}
+                  onChange={(e) =>
+                    handleItemChange(index, "quantity", e.target.value)
+                  }
+                  size="sm"
+                  min={1}
                 />
-              </td>
-              <td>
-                <input
+              </Td>
+              <Td>
+                <Input
                   type="number"
                   value={item.price}
-                  onChange={(e) => handleItemChange(index, "price", e.target.value)}
+                  onChange={(e) =>
+                    handleItemChange(index, "price", e.target.value)
+                  }
+                  size="sm"
                 />
-              </td>
-              <td>{(item.quantity * item.price).toFixed(2)}</td>
-              <td>
-                <button onClick={() => removeItem(index)}>Remove</button>
-              </td>
-            </tr>
+              </Td>
+              <Td>{(item.quantity * item.price).toFixed(2)}</Td>
+              <Td>
+                <IconButton
+                  icon={<MinusIcon />}
+                  onClick={() => removeItem(index)}
+                  colorScheme="red"
+                  size="sm"
+                  aria-label="Remove item"
+                />
+              </Td>
+            </Tr>
           ))}
-        </tbody>
-      </table>
-      <button onClick={addItem}>Add Item</button>
-    </div>
+        </Tbody>
+      </Table>
+      <HStack spacing={4} mt={4} justify="flex-end">
+        <Button onClick={addItem} leftIcon={<AddIcon />} colorScheme="green">
+          Add Item
+        </Button>
+      </HStack>
+    </Box>
   );
 };
 

@@ -1,11 +1,14 @@
 import React from "react";
-import InvoiceGenerator from "./component/InvoiceGenerator";
+import { ChakraProvider } from "@chakra-ui/react"; 
+import InvoiceGenerator from "./component/InvoiceGenerator"; 
 
 function App() {
   return (
-    <div className="App">
-      <InvoiceGenerator />
-    </div>
+    <ChakraProvider> 
+      <div className="App">
+        <InvoiceGenerator />
+      </div>
+    </ChakraProvider>
   );
 }
 
